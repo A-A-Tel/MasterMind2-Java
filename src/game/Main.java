@@ -107,6 +107,7 @@ public class Main {
                 playerCode[j] = Character.toUpperCase(sc.next().charAt(0));
             }
 
+            // Continues without costing an attempt if the input is faulty
             error = !isValid(playerCode);
             if (error) {
                 i--;
