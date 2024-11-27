@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Main {
 
     public static final byte codeLength = 4;
-    public static final int maxAttempts = 99999;
+    public static final int maxAttempts = 10;
 
     public static final char[] codeItems = {'R', 'G', 'B', 'Y', 'P', 'O'};
 
