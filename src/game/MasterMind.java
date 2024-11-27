@@ -13,7 +13,7 @@ public class MasterMind {
         char[] generatedCode = new char[Main.codeLength];
 
         for (int i = 0; i < Main.codeLength; i++) {
-            generatedCode[i] = Main.codeItems[r.nextInt(Main.codeLength)];
+            generatedCode[i] = Main.codeItems[r.nextInt(Main.codeItems.length)];
         }
         return generatedCode;
     }

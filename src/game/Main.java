@@ -4,12 +4,13 @@ import java.util.Arrays;
 
 public class Main {
 
-    public static final byte codeLength = 4;
+    public static final byte codeLength = 127;
     public static final int maxAttempts = 10;
 
     public static final char[] codeItems = {'R', 'G', 'B', 'Y', 'P', 'O'};
 
     static final MasterMind code = new MasterMind();
+    static final Solver solver = new Solver();
 
     public static void main(String[] args) {
 
@@ -36,8 +37,11 @@ public class Main {
 
             // Saves the previous input in case it is invalid
             char[] savedPlayerCode = playerCode;
-            playerCode = code.playerInput();
+
+            // Three ways to play: 1. userinput 2. random brute-force 3. calculated solver
+//            playerCode = code.playerInput();
 //            playerCode = code.generateCode();
+            playerCode = solver.solve(evaluation, i);
 
             // Continues without costing an attempt if the input is faulty
             error = !code.isValid(playerCode);
@@ -48,11 +52,11 @@ public class Main {
                 continue;
             }
             evaluation = code.evaluate(playerCode, secretCode);
-//            try {
-//                Thread.sleep(100);
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
         System.out.println("\r\nToo bad, the code was: \r\n" + Arrays.toString(secretCode));
     }
