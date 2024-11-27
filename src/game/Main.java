@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Main {
 
-    public static final byte codeLength = 127;
+    public static final byte codeLength = 4;
     public static final int maxAttempts = 10;
 
     public static final char[] codeItems = {'R', 'G', 'B', 'Y', 'P', 'O'};
@@ -39,9 +39,9 @@ public class Main {
             char[] savedPlayerCode = playerCode;
 
             // Takes the (user)input
-//            playerCode = code.playerInput(); // Userinput
+            playerCode = code.playerInput(); // Userinput
 //            playerCode = code.generateCode(); // Random bruteforce
-            playerCode = solver.solve(evaluation, i); // Calculated solver
+//            playerCode = solver.solve(evaluation, i); // Calculated solver
 
             // Continues without costing an attempt if the input is faulty
             error = !code.isValid(playerCode);
@@ -52,11 +52,13 @@ public class Main {
                 continue;
             }
             evaluation = code.evaluate(playerCode, secretCode);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            
+            // When you are using a bot, it is recommended to uncomment this code below
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
         }
         System.out.println("\r\nToo bad, the code was: \r\n" + Arrays.toString(secretCode));
     }
