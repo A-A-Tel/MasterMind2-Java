@@ -1,16 +1,29 @@
 package game;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class MasterMind {
 
     // Generate the code
+    public char[] generateCode() {
+        Random r = new Random();
+
+        char[] generatedCode = new char[Main.codeLength];
+
+        for (int i = 0; i < Main.codeLength; i++) {
+            generatedCode[i] = Main.codeItems[r.nextInt(Main.codeLength)];
+        }
+        return generatedCode;
+    }
 
     // Output the current board layout
     public void displayBoard(char[] playerCode, char[] evaluatedCode, int guessesLeft) {
 
         if (guessesLeft != -1) {
             System.out.println("\r\nGuesses: " + guessesLeft + "/" + Main.maxAttempts);
+        } else {
+            System.out.println();
         }
         if (playerCode != null) {
             System.out.println(Arrays.toString(playerCode));
@@ -44,19 +57,19 @@ public class MasterMind {
     }
 
     // Evaluates the code based on MasterMind rules, also checks if the player has won
-    public char[] evaluate(char[] playerCode) {
+    public char[] evaluate(char[] playerCode, char[] secretCode) {
 
         int correctPositions = 0;
         char[] evaluation = new char[Main.codeLength];
 
         mainLoop:
         for (int i = 0; i < Main.codeLength; i++) {
-            if (playerCode[i] == Main.secretCode[i]) {
+            if (playerCode[i] == secretCode[i]) {
                 evaluation[i] = 'B';
                 correctPositions++;
                 continue;
             }
-            for (char codeItem : Main.secretCode) {
+            for (char codeItem : secretCode) {
                 if (codeItem == playerCode[i]) {
                     evaluation[i] = 'W';
                     continue mainLoop;

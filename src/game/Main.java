@@ -1,7 +1,6 @@
 package game;
 
 import java.util.Arrays;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -9,25 +8,22 @@ public class Main {
     public static final byte codeLength = 4;
     public static final int maxAttempts = 10;
 
-    public static final char[] secretCode = new char[codeLength];
     public static final char[] codeItems = {'R', 'G', 'B', 'Y', 'P', 'O'};
 
     static final MasterMind code = new MasterMind();
 
     public static void main(String[] args) {
 
+        // Var/Object setup
         boolean error = false;
 
         char[] playerCode = null;
         char[] evaluation = null;
 
         Scanner sc = new Scanner(System.in);
-        Random r = new Random();
 
-        // Generate the code
-        for (int i = 0; i < codeLength; i++) {
-            secretCode[i] = codeItems[r.nextInt(codeItems.length)];
-        }
+        // Code generation
+        char[] secretCode = code.generateCode();
 
         // Main game loop
         for (int i = 0; i < maxAttempts; i++) {
@@ -35,7 +31,7 @@ public class Main {
             if (error) {
                 System.out.println("That was not a valid input! Please try again...");
             } else {
-                System.out.println("Enter your code...");
+                System.out.println("Enter your code, use spaces between the inputs...");
             }
             System.out.println("Choose from: " + Arrays.toString(codeItems));
 
@@ -52,7 +48,7 @@ public class Main {
                 playerCode = savedPlayerCode;
                 continue;
             }
-            evaluation = code.evaluate(playerCode);
+            evaluation = code.evaluate(playerCode, secretCode);
         }
         System.out.println("\r\nToo bad, the code was: \r\n" + Arrays.toString(secretCode));
         sc.close();
