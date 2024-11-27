@@ -38,10 +38,10 @@ public class Main {
             // Saves the previous input in case it is invalid
             char[] savedPlayerCode = playerCode;
 
-            // Three ways to play: 1. userinput 2. random brute-force 3. calculated solver
-//            playerCode = code.playerInput();
-//            playerCode = code.generateCode();
-            playerCode = solver.solve(evaluation, i);
+            // Takes the (user)input
+//            playerCode = code.playerInput(); // Userinput
+//            playerCode = code.generateCode(); // Random bruteforce
+            playerCode = solver.solve(evaluation, i); // Calculated solver
 
             // Continues without costing an attempt if the input is faulty
             error = !code.isValid(playerCode);
