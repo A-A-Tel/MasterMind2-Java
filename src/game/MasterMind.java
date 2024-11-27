@@ -3,6 +3,9 @@ package game;
 import java.util.Arrays;
 
 public class MasterMind {
+
+    // Generate the code
+
     // Output the current board layout
     public void displayBoard(char[] playerCode, char[] evaluatedCode, int guessesLeft) {
 
