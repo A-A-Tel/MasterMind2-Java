@@ -4,10 +4,10 @@ import java.util.Arrays;
 
 public class MasterMind {
     // Output the current board layout
-    public void displayBoard(char[] playerCode, char[] evaluatedCode, int guessesLeft, boolean hasWon) {
+    public void displayBoard(char[] playerCode, char[] evaluatedCode, int guessesLeft) {
 
         if (guessesLeft != -1) {
-            System.out.println("Guesses: " + guessesLeft + "/" + Main.maxAttempts);
+            System.out.println("\r\nGuesses: " + guessesLeft + "/" + Main.maxAttempts);
         }
         if (playerCode != null) {
             System.out.println(Arrays.toString(playerCode));
@@ -16,7 +16,7 @@ public class MasterMind {
             System.out.println(Arrays.toString(evaluatedCode));
         }
         // Kills the process if the game has concluded
-        if (hasWon) {
+        if (guessesLeft == -1) {
             System.out.println("Congrats, You have cracked the code!");
             System.exit(0);
         }
@@ -62,7 +62,7 @@ public class MasterMind {
             evaluation[i] = '-';
         }
         if (correctPositions == Main.codeLength) {
-            displayBoard(playerCode, evaluation, -1, true);
+            displayBoard(playerCode, evaluation, -1);
         }
         return evaluation;
     }

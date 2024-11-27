@@ -31,7 +31,7 @@ public class Main {
 
         // Main game loop
         for (int i = 0; i < maxAttempts; i++) {
-            code.displayBoard(playerCode, evaluation, i + 1, false);
+            code.displayBoard(playerCode, evaluation, i + 1);
             if (error) {
                 System.out.println("That was not a valid input! Please try again...");
             } else {
@@ -54,6 +54,7 @@ public class Main {
             }
             evaluation = code.evaluate(playerCode);
         }
+        System.out.println("\r\nToo bad, the code was: \r\n" + Arrays.toString(secretCode));
         sc.close();
     }
 }
