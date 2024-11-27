@@ -2,6 +2,7 @@ package game;
 
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Scanner;
 
 public class MasterMind {
 
@@ -38,6 +39,18 @@ public class MasterMind {
         }
     }
 
+    // Take user-input
+    public char[] playerInput() {
+        Scanner sc = new Scanner(System.in);
+
+        char[] input = new char[Main.codeLength];
+
+        for (int i = 0; i < Main.codeLength; i++) {
+            input[i] = Character.toUpperCase(sc.next().charAt(0));
+        }
+        return input;
+    }
+
     // Checks if the current code is valid
     public boolean isValid(char[] playerCode) {
 
@@ -62,20 +75,20 @@ public class MasterMind {
         int correctPositions = 0;
         char[] evaluation = new char[Main.codeLength];
 
-        mainLoop:
         for (int i = 0; i < Main.codeLength; i++) {
             if (playerCode[i] == secretCode[i]) {
                 evaluation[i] = 'B';
                 correctPositions++;
                 continue;
             }
+            evaluation[i] = '-';
+
             for (char codeItem : secretCode) {
                 if (codeItem == playerCode[i]) {
                     evaluation[i] = 'W';
-                    continue mainLoop;
+                    break;
                 }
             }
-            evaluation[i] = '-';
         }
         if (correctPositions == Main.codeLength) {
             displayBoard(playerCode, evaluation, -1);
