@@ -4,11 +4,12 @@ import java.util.Arrays;
 
 public class Main {
 
-    static final Solver solver = new Solver();
 
     public static void main(String[] args) {
 
         final MasterMind code = new MasterMind();
+        final Solver solver = new Solver();
+        
         // Var/Object setup
         boolean error = false;
 
