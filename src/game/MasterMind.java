@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class MasterMind {
+    
     public final char[] codeItems = {'R', 'G', 'B', 'Y', 'P', 'O'};
     public final int maxAttempts = 10;
     public final byte codeLength = 4;
