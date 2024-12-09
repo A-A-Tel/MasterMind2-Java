@@ -5,10 +5,14 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class MasterMind {
-    
-    public final char[] codeItems = {'R', 'G', 'B', 'Y', 'P', 'O'};
+
+    public final char[] codeItems = {'R', 'G', 'B', 'Y', 'P', 'O'}; // This needs to be public for the Solver class
     public final int maxAttempts = 10;
-    public final byte codeLength = 4;
+    public final byte codeLength = 4; // This needs to be public for the Solver class
+    public char[] secretCode;
+
+    private char[] playerCode;
+    private char[] evaluation;
 
     // Generate the code
     public char[] generateCode() {
@@ -22,41 +26,48 @@ public class MasterMind {
         return generatedCode;
     }
 
+    public void printArray(char[] arr) {
+        System.out.println(Arrays.toString(arr));
+    }
+
     // Output the current board layout
-    public void displayBoard(char[] playerCode, char[] evaluatedCode, int guessesLeft) {
+    public boolean displayBoard(int guessesLeft) {
 
         if (guessesLeft != -1) {
             System.out.println("\r\nGuesses: " + guessesLeft + "/" + maxAttempts);
         } else {
             System.out.println();
         }
-        if (playerCode != null) {
-            System.out.println(Arrays.toString(playerCode));
-        }
-        if (evaluatedCode != null) {
-            System.out.println(Arrays.toString(evaluatedCode));
-        }
+
+        printArray(playerCode);
+        printArray(evaluation);
+
         // Kills the process if the game has concluded
         if (guessesLeft == -1) {
             System.out.println("Congrats, You have cracked the code!");
-            System.exit(0);
+            return true;
         }
+        return false;
     }
 
     // Take user-input
-    public char[] playerInput() {
+    public void playerInput() {
         Scanner sc = new Scanner(System.in);
 
         char[] input = new char[codeLength];
 
-        for (int i = 0; i < codeLength; i++) {
-            input[i] = Character.toUpperCase(sc.next().charAt(0));
-        }
-        return input;
+        do {
+            for (int i = 0; i < codeLength; i++) {
+                input[i] = Character.toUpperCase(sc.next().charAt(0));
+            }
+        } while (isValid(input));
+
+        playerCode = input;
+        evaluate();
     }
 
     // Checks if the current code is valid
-    public boolean isValid(char[] playerCode) {
+    private boolean isValid(char[] playerCode) {
 
         for (char playerCodeItem : playerCode) {
             boolean isPresent = false;
@@ -74,7 +85,7 @@ public class MasterMind {
     }
 
     // Evaluates the code based on MasterMind rules, also checks if the player has won
-    public char[] evaluate(char[] playerCode, char[] secretCode) {
+    public void evaluate() {
 
         int correctPositions = 0;
         char[] evaluation = new char[codeLength];
@@ -83,7 +94,8 @@ public class MasterMind {
             if (playerCode[i] == secretCode[i]) {
                 evaluation[i] = 'B';
                 correctPositions++;
-                continue;
+                continue; //// This continue statement continues the for-loop so that it won't have to check the other
+                          //// conditions, as when the program gets to the continue, it has no need to check the rest.
             }
             evaluation[i] = '-';
 
@@ -94,9 +106,10 @@ public class MasterMind {
                 }
             }
         }
+        this.evaluation = evaluation;
+
         if (correctPositions == codeLength) {
-            displayBoard(playerCode, evaluation, -1);
+            displayBoard(-1);
         }
-        return evaluation;
     }
 }
