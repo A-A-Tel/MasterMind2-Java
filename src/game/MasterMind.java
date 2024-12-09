@@ -39,7 +39,7 @@ public class MasterMind {
             System.out.println();
         }
 
-        if (evaluation != null) { // No need to check the other rest.
+        if (evaluation != null) { // No need to check the other array, it will have an eval when it has a player code.
             printArray(playerCode);
             printArray(evaluation);
         }
