@@ -8,7 +8,7 @@ public class MasterMind {
 
     public final char[] codeItems = {'R', 'G', 'B', 'Y', 'P', 'O'}; // This needs to be public for the Solver class
     public final int maxAttempts = 10;
-    public final byte codeLength = 4; // This needs to be public for the Solver class
+    public final byte codeLength = 4; // This needs to be public for the Solver class, otherwise it can be private.
     public char[] secretCode;
 
     private char[] playerCode;
@@ -39,8 +39,10 @@ public class MasterMind {
             System.out.println();
         }
 
-        printArray(playerCode);
-        printArray(evaluation);
+        if (evaluation != null) { // No need to check the other rest.
+            printArray(playerCode);
+            printArray(evaluation);
+        }
 
         // Kills the process if the game has concluded
         if (guessesLeft == -1) {
@@ -66,6 +68,35 @@ public class MasterMind {
         evaluate();
     }
 
+    // Evaluates the code based on MasterMind rules, also checks if the player has won
+    public void evaluate() {
+
+        int correctPositions = 0;
+        char[] evaluation = new char[codeLength];
+
+        for (int i = 0; i < codeLength; i++) {
+            if (playerCode[i] == secretCode[i]) {
+                evaluation[i] = 'B';
+                correctPositions++;
+
+            } else {
+                evaluation[i] = '-';
+
+                for (char codeItem : secretCode) {
+                    if (codeItem == playerCode[i]) {
+                        evaluation[i] = 'W';
+                        break;
+                    }
+                }
+            }
+        }
+        this.evaluation = evaluation;
+
+        if (correctPositions == codeLength) {
+            displayBoard(-1);
+        }
+    }
+
     // Checks if the current code is valid
     private boolean isValid(char[] playerCode) {
 
@@ -82,34 +113,5 @@ public class MasterMind {
             }
         }
         return true;
-    }
-
-    // Evaluates the code based on MasterMind rules, also checks if the player has won
-    public void evaluate() {
-
-        int correctPositions = 0;
-        char[] evaluation = new char[codeLength];
-
-        for (int i = 0; i < codeLength; i++) {
-            if (playerCode[i] == secretCode[i]) {
-                evaluation[i] = 'B';
-                correctPositions++;
-                continue; //// This continue statement continues the for-loop so that it won't have to check the other
-                          //// conditions, as when the program gets to the continue, it has no need to check the rest.
-            }
-            evaluation[i] = '-';
-
-            for (char codeItem : secretCode) {
-                if (codeItem == playerCode[i]) {
-                    evaluation[i] = 'W';
-                    break;
-                }
-            }
-        }
-        this.evaluation = evaluation;
-
-        if (correctPositions == codeLength) {
-            displayBoard(-1);
-        }
     }
 }

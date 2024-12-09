@@ -22,16 +22,10 @@ public class Main {
 
             // Takes the (user)input
             code.playerInput(); // Userinput
-
 //            playerCode = code.generateCode(); // Random bruteforce
 //            playerCode = solver.solve(evaluation, i); // Calculated solver
 
-            // When you are using a bot, it is recommended to uncomment this code below
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
+//            solver.delay(1000); // When you are using a bot, it is recommended to uncomment this code
         }
         if (hasWon) {
             System.out.println("\r\nToo bad, the code was:");

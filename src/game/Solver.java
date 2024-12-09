@@ -25,4 +25,12 @@ public class Solver {
         previousInput = input;
         return input;
     }
+
+    public void delay(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException _) {
+            Thread.currentThread().interrupt();
+        }
+    }
 }
