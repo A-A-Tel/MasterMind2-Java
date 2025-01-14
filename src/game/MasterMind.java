@@ -69,7 +69,7 @@ public class MasterMind {
     }
 
     // Evaluates the code based on MasterMind rules, also checks if the player has won
-    public void evaluate() {
+    private void evaluate() {
 
         int correctPositions = 0;
         char[] evaluation = new char[codeLength];
