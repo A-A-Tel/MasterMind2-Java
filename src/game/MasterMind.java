@@ -54,9 +54,9 @@ public class MasterMind {
 
     // Take user-input
     public void playerInput() {
-        Scanner sc = new Scanner(System.in);
+        final Scanner sc = new Scanner(System.in);
 
-        char[] input = new char[codeLength];
+        final char[] input = new char[codeLength];
 
         do {
             for (int i = 0; i < codeLength; i++) {
@@ -72,7 +72,7 @@ public class MasterMind {
     private void evaluate() {
 
         int correctPositions = 0;
-        char[] evaluation = new char[codeLength];
+        final char[] evaluation = new char[codeLength];
 
         for (int i = 0; i < codeLength; i++) {
             if (playerCode[i] == secretCode[i]) {
