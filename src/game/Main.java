@@ -21,7 +21,7 @@ public class Main {
             }
 
             // Takes the (user)input
-            code.playerInput(); // Userinput
+            code.playerInput(); // User-input
 //            playerCode = code.generateCode(); // Random bruteforce
 //            playerCode = solver.solve(evaluation, i); // Calculated solver
 
